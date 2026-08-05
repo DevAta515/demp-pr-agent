@@ -62,3 +62,14 @@ FROM products p
 LEFT JOIN categories c ON p.category_id = c.category_id
 WHERE p.stock_quantity < 10
 ORDER BY p.stock_quantity ASC;
+
+-- 6. Average product ratings and total review counts per product
+SELECT 
+    p.product_id,
+    p.name AS product_name,
+    ROUND(AVG(r.rating), 2) AS average_rating,
+    COUNT(r.review_id) AS review_count
+FROM products p
+LEFT JOIN reviews r ON p.product_id = r.product_id
+GROUP BY p.product_id, p.name
+ORDER BY average_rating DESC NULLS LAST;

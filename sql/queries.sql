@@ -12,17 +12,19 @@ LEFT JOIN orders o ON u.user_id = o.user_id
 GROUP BY u.user_id, u.username, u.email
 ORDER BY total_spent DESC;
 
--- 2. Find top 5 selling products by revenue
+-- 2. Find top 5 selling products by revenue with category details
 SELECT 
     p.product_id,
-    p.name,
+    p.name AS product_name,
+    c.name AS category_name,
     SUM(oi.quantity) AS units_sold,
     SUM(oi.quantity * oi.unit_price) AS total_revenue
 FROM products p
+LEFT JOIN categories c ON p.category_id = c.category_id
 JOIN order_items oi ON p.product_id = oi.product_id
 JOIN orders o ON oi.order_id = o.order_id
 WHERE o.status = 'completed'
-GROUP BY p.product_id, p.name
+GROUP BY p.product_id, p.name, c.name
 ORDER BY total_revenue DESC
 LIMIT 5;
 
@@ -48,3 +50,15 @@ FROM orders o
 JOIN users u ON o.user_id = u.user_id
 WHERE o.status = 'pending'
 ORDER BY o.created_at ASC;
+
+-- 5. Products low on stock (less than 10 units remaining)
+SELECT 
+    p.product_id,
+    p.name AS product_name,
+    c.name AS category_name,
+    p.stock_quantity,
+    p.price
+FROM products p
+LEFT JOIN categories c ON p.category_id = c.category_id
+WHERE p.stock_quantity < 10
+ORDER BY p.stock_quantity ASC;

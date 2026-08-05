@@ -58,3 +58,29 @@ SELECT
     ) AS mom_growth_percentage
 FROM MonthlySales
 ORDER BY sales_month DESC;
+
+-- 4. Cohort Retention Analysis by User Signup Month
+WITH UserCohorts AS (
+    SELECT 
+        user_id,
+        DATE_TRUNC('month', created_at) AS cohort_month
+    FROM users
+),
+UserActivity AS (
+    SELECT 
+        o.user_id,
+        c.cohort_month,
+        DATE_TRUNC('month', o.created_at) AS activity_month,
+        (EXTRACT(YEAR FROM o.created_at) - EXTRACT(YEAR FROM c.cohort_month)) * 12 + 
+        (EXTRACT(MONTH FROM o.created_at) - EXTRACT(MONTH FROM c.cohort_month)) AS month_number
+    FROM orders o
+    JOIN UserCohorts c ON o.user_id = c.user_id
+    WHERE o.status = 'completed'
+)
+SELECT 
+    cohort_month,
+    month_number,
+    COUNT(DISTINCT user_id) AS active_users
+FROM UserActivity
+GROUP BY cohort_month, month_number
+ORDER BY cohort_month ASC, month_number ASC;

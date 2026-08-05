@@ -22,3 +22,14 @@ dist/
 .DS_Store
 .idea/
 .vscode/
+
+# Database dumps & backups
+*.sql.bak
+*.dump
+*.sqlite3
+
+# Logs & Coverage
+*.log
+htmlcov/
+.coverage
+

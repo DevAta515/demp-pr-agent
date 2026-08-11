@@ -1,0 +1,41 @@
+<html>
+<body>
+<table border="1" cellpadding="8" cellspacing="0" style="border-collapse: collapse; font-family: Arial, sans-serif;">
+  <tr style="background-color: #f2f2f2; font-weight: bold;">
+    <td>Subsystem / Phase</td>
+    <td>Technologies Used</td>
+    <td>Key Responsibilities</td>
+  </tr>
+  <tr>
+    <td>Event Trigger</td>
+    <td>GitHub Actions (pull_request), Webhook POST</td>
+    <td>Detects .sql file updates in real-time.</td>
+  </tr>
+  <tr>
+    <td>CLI Runner</td>
+    <td>Python 3.12, argparse, asyncio</td>
+    <td>Environment-agnostic entrypoint (src/main.py).</td>
+  </tr>
+  <tr>
+    <td>Deterministic Engine</td>
+    <td>sqlglot, sqlfluff, re</td>
+    <td>Syntax parsing, AST traversal, casing &amp; suffix enforcement (~5ms, $0 cost).</td>
+  </tr>
+  <tr>
+    <td>Semantic Engine</td>
+    <td>LiteLLM, Pydantic v2, Gemini 2.5 / Claude</td>
+    <td>Evaluates domain abbreviations, entity correlations, logical sanity, and PR feedback formatting.</td>
+  </tr>
+  <tr>
+    <td>Publishing &amp; Aggregation</td>
+    <td>Jinja2, PyGithub, python-gitlab</td>
+    <td>Merges findings, maps line numbers, posts inline GitHub PR comments.</td>
+  </tr>
+  <tr>
+    <td>Deployment Layer</td>
+    <td>Docker, FastAPI, uvicorn, GCP Cloud Run</td>
+    <td>Centralized webhook container for multi-repo enterprise setups.</td>
+  </tr>
+</table>
+</body>
+</html>

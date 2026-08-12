@@ -24,10 +24,10 @@ jobs:
 
           GOOGLE_AI_STUDIO.GEMINI_API_KEY: ${{ secrets.GEMINI_API_KEY }}
 
-          config.model: "gemini/gemini-1.5-flash"
+          config.model: "gemini-3.1-flash-lite"
 
-          config.fallback_models: '["gemini/gemini-1.5-flash"]'
-
+          config.fallback_models: '["gemini-3.1-pro-preview"]'
+          config.custom_model_max_tokens: "1048576"
           github_action_config.auto_review: "true"
           github_action_config.auto_describe: "true"
           github_action_config.auto_improve: "true"

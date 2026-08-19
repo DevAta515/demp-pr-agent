@@ -26,7 +26,7 @@ payment_table = "core.invoices"
 # ============================================================
 
 customers = spark.sql("""
-    SELECT
+    select
         user_id,
         display_name,
         email,
@@ -53,7 +53,7 @@ customer_orders = spark.sql("""
         MAX(txn_date) AS last_txn_date
     FROM core.transactions
     WHERE status = 'COMPLETED'
-    GROUP BY user_id
+    group BY user_id
     HAVING SUM(gross_amount) > 2500
 """)
 

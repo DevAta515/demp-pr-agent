@@ -69,7 +69,7 @@ customer_summary = spark.sql("""
             COUNT(DISTINCT txn_id) AS order_count,
             SUM(gross_amount) AS revenue,
             AVG(gross_amount) AS avg_order_value
-        FROM core.transactions
+        from core.transactions
         WHERE status IN ('COMPLETED', 'SHIPPED')
         GROUP BY user_id
     ),

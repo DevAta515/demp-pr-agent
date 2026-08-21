@@ -730,7 +730,7 @@ complex_final = spark.sql("""
             WHEN successful_payments > 75000
                 THEN 'GOLD'
 
-            WHEN successful_payments > 27500
+            when successful_payments > 27500
                 THEN 'SILVER'
 
             ELSE 'STANDARD'
@@ -747,7 +747,7 @@ complex_final = spark.sql("""
 """)
 
 # New dynamic and f-string test cases
-dynamic_table = "audit_records"
+dynamic_table = "adt_records"
 filter_val = "FAILED"
 result_df = spark.sql(f"select id, event_time fRoM {dynamic_table} wHeRe status = '{filter_val}'")
 

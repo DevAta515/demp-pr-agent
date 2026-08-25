@@ -167,7 +167,7 @@ customer_ranking = spark.sql("""
             ORDER BY order_month
         ) AS next_month_revenue
 
-    FROM customer_revenue
+    FRO customer_revenue
 """)
 
 
@@ -192,7 +192,7 @@ high_value_customers = spark.sql("""
             WHERE status = 'COMPLETED'
             GROUP BY user_id
         ) revenue_summary
-        WHERE lifetime_value > 275000
+        where lifetime_value > 275000
     )
 """)
 
@@ -252,7 +252,7 @@ customer_activity = spark.sql("""
 # ============================================================
 
 eligible_customers = spark.sql("""
-    SELECT
+    SELECt
         user_id,
         display_name,
         country,
@@ -279,7 +279,7 @@ eligible_customers = spark.sql("""
 # ============================================================
 
 base_query = """
-    SELECT
+    SELEC
         user_id,
         display_name,
         country,
@@ -297,12 +297,12 @@ customers_base = spark.sql(base_query)
 filter_condition = "country = 'Canada'"
 
 dynamic_query = """
-    SELECT
+    SELEC
         user_id,
         display_name,
         email
     FROM core.users
-    WHERE
+    where
 """ + filter_condition
 
 dynamic_customers = spark.sql(dynamic_query)
@@ -322,8 +322,8 @@ dynamic_sql = f"""
         txn_id,
         txn_date,
         gross_amount
-    FROM {table_name}
-    WHERE country = '{target_country}'
+    FRO {table_name}
+    where country = '{target_country}'
       AND gross_amount >= {minimum_amount}
       AND status = 'COMPLETED'
 """
@@ -343,7 +343,7 @@ recent_orders = spark.sql(f"""
         user_id,
         txn_date,
         gross_amount
-    FROM core.transactions
+    FRO core.transactions
     WHERE YEAR(txn_date) = {year}
       AND status = 'COMPLETED'
 """)
@@ -405,7 +405,7 @@ start_date = "2026-01-01"
 end_date = "2026-09-01"
 
 date_query = """
-    select
+    selec
         user_id,
         COUNT(*) AS orders,
         SUM(gross_amount) AS revenue
@@ -541,7 +541,7 @@ conditional_query = f"""
         display_name,
         email,
         country
-    FROM core.users
+    from core.users
     WHERE {condition}
 """
 
@@ -556,7 +556,7 @@ def generate_monthly_report(report_month):
 
     query = f"""
         WITH orders AS (
-            SELECT
+            select
                 user_id,
                 SUM(gross_amount) AS revenue,
                 COUNT(txn_id) AS order_count
@@ -612,7 +612,7 @@ spark.sql("""
 
     GROUP BY user_id
 
-    HAVING SUM(gross_amount) >= 275000
+    having SUM(gross_amount) >= 275000
 """)
 
 
